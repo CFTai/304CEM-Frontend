@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import { Container, Nav, Navbar } from 'react-bootstrap';
+import { Container, Nav, Navbar} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const linkStyle = {
@@ -38,8 +38,16 @@ const NavigationBar = () => {
               <Nav.Link href='/' style={linkStyle}>
                 Home
               </Nav.Link>
+              <Nav.Link href='/team' style={linkStyle}>
+                Team
+              </Nav.Link>
+              <Nav.Link href='/shop' style={linkStyle}>
+                Shop
+              </Nav.Link>
               <Nav.Link href='/login' style={linkStyle}>
-                Login
+                <button type="button" class="btn btn-light">
+                  login
+                </button> 
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>
