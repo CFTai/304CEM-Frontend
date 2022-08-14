@@ -10,14 +10,9 @@ import './styles/app.css';
 function App() {
   return (
     <BrowserRouter>
-        {/* <Route path="/">
-          <Route index component={<Home />} />
-          <Route path="login" element={<Login />} />
-          <Route path="shop" element={<Shop />} />
-          <Route path="team" element={<Team />} />
-        </Route> */}
         <Routes>
-          <Route index path="/" element={<Home />} />
+          <Route index
+           element={<Home />} />
           <Route path="login" element={<Login />} />
           <Route path="shop" element={<Shop />} />
           <Route path="team" element={<Team />} />
