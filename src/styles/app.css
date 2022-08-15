@@ -67,7 +67,6 @@ section:nth-child(even) {
   height: 100%;
 }
 
-
 .container .landing-content {
   position: absolute;
   top:30%;
@@ -77,6 +76,12 @@ section:nth-child(even) {
   padding: 10% 5%;
   border-radius: 10px ;
   border: 1px white solid; 
+}
+
+/* Text */
+
+h2.underline {
+  text-decoration: underline;
 }
 
 /* Overlay */
@@ -145,6 +150,8 @@ header {
  box-shadow: 1px 1px 0px 2px rgba (0,0,0,0.3);
   cursor: pointer;
 }
+
+/* Footer */
 
 footer {
   height: fit-content;

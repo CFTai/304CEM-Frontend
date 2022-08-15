@@ -4,11 +4,24 @@ import Header from '../components/header';
 import Button from '../components/button';
 import Footer from '../components/footer';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 
 export default class Home extends Component  {
   constructor(props) {
     super(props);
+  }
+
+  state = {
+    productList: []
+  }
+
+  componentDidMount() {
+    axios.get('http://localhost:8080/product/')
+      .then(res  => {
+        this.setState({productList: res.data.data.result})
+        console.log(this.state.productList)
+      })
   }
 
   render() {
@@ -33,7 +46,7 @@ export default class Home extends Component  {
       </section>
 
       <section className={"container"}>
-        <h2>GET OUT LATEST KIT</h2>
+        <h2 className={"underline"}>GET OUT LATEST KIT</h2>
       </section>
 
       <section className={"container"}>
