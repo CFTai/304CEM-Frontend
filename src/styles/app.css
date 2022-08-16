@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 * {
   margin: 0;
@@ -7,6 +9,11 @@
   font-family: 'Open Sans', sans-serif;
 }
 /* Common item */
+
+img {
+  width: 100%;
+  height: auto;
+}
 
 section {
     min-height: 90vh ;
@@ -29,7 +36,7 @@ section:nth-child(even) {
     background-color: rgba(85, 53, 53, 0.584);
 }
 
-.container {
+.custom-container {
   right: 0;
   width: 100%;
   min-height: 100vh;
@@ -43,7 +50,11 @@ section:nth-child(even) {
   transition: 0.5s;
 }
 
-.container header {
+.custom-container.grid {
+  display: grid;
+}
+
+.custom-container header {
   position: absolute;
   left: 0;
   top: 0;
@@ -54,7 +65,7 @@ section:nth-child(even) {
   justify-content: space-between;
 }
 
-.container .landing-background {
+.custom-container .landing-background {
   background-image: url("../images/homePage/pexels-mike-1171084.jpg");
   background-position: center;
   background-size: cover;
@@ -67,8 +78,20 @@ section:nth-child(even) {
   height: 100%;
 }
 
-.container .landing-content {
+.custom-container .product-background {
+  background-image: url("../images/homePage/pexels-stanley-morales-3148452.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  filter: blur(2px);
+  display: block;
   position: absolute;
+  left: 0;
+  right: 0;
+  height: 100%;
+}
+
+.custom-container .landing-content {
   top:30%;
   left:10%;
   z-index: 2;
@@ -80,8 +103,10 @@ section:nth-child(even) {
 
 /* Text */
 
-h2.underline {
-  text-decoration: underline;
+h2.subtitle {
+  font-weight: bold;
+  padding-bottom: 80px;
+  text-align: center;
 }
 
 /* Overlay */
@@ -183,4 +208,53 @@ footer span.footer-span {
   margin: 0 15px;
 }
 
+/* Home page */
+
+.item.list-group-item
+{
+    float: none;
+    width: 100%;
+    background-color: #fff;
+    margin-bottom: 10px;
+}
+.item.list-group-item:nth-of-type(odd):hover,.item.list-group-item:hover
+{
+    background: #428bca;
+}
+
+.item.list-group-item .list-group-image
+{
+    margin-right: 10px;
+}
+.item.list-group-item .thumbnail
+{
+    margin-bottom: 0px;
+}
+.item.list-group-item .caption
+{
+    padding: 9px 9px 0px 9px;
+}
+.item.list-group-item:nth-of-type(odd)
+{
+    background: #eeeeee;
+}
+
+.item.list-group-item:before, .item.list-group-item:after
+{
+    display: table;
+    content: " ";
+}
+
+.item.list-group-item img
+{
+    float: left;
+}
+.item.list-group-item:after
+{
+    clear: both;
+}
+.list-group-item-text
+{
+    margin: 0 0 11px;
+}
 

@@ -6,6 +6,10 @@ import Footer from '../components/footer';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+
 
 export default class Home extends Component  {
   constructor(props) {
@@ -30,7 +34,7 @@ export default class Home extends Component  {
       <Header
         brand="brand"
       />
-      <section className={"container"}>
+      <section className={"custom-container"}>
         <div className={"landing-background"}>
         </div> 
         <div className={"landing-content"}>
@@ -45,11 +49,62 @@ export default class Home extends Component  {
         </div>
       </section>
 
-      <section className={"container"}>
-        <h2 className={"underline"}>GET OUT LATEST KIT</h2>
+      <section className={"custom-container"}>
+        <div className={"product-background"}></div>
+        <div className={"landing-content"}>
+        <h2 className={"subtitle"}>GET OUT LATEST KIT</h2>
+        <Container>
+          <Row className="justify-content-md-center">
+            <Col>
+              <img class="group list-group-image" src="https://dummyimage.com/400x600/8873ff/ffffff" alt="Home Kit" />
+              <div class="caption">
+                    <h4 class="group inner list-group-item-heading">
+                        HOME KIT</h4>
+                    <Row>
+                        <Col>
+                            <p class="lead">
+                                start from 49.99</p>
+                        </Col>
+                    </Row>
+                </div>
+            </Col>
+            <Col>
+              <img class="group list-group-image" src="https://dummyimage.com/400x600/8873ff/ffffff" alt="Third Kit" />
+              <div class="caption">
+                    <h4 class="group inner list-group-item-heading">
+                        THIRD KIT</h4>
+                    <Row>
+                        <Col>
+                            <p class="lead">
+                                start from 49.99</p>
+                        </Col>
+                    </Row>
+                </div>
+            </Col>
+            <Col>
+              <img class="group list-group-image" src="https://dummyimage.com/400x600/8873ff/ffffff" alt="Home Kit" />
+              <div class="caption">
+                    <h4 class="group inner list-group-item-heading">
+                        AWAY KIT</h4>
+                    <Row>
+                        <Col>
+                            <p class="lead">
+                                start from 49.99</p>
+                        </Col>
+                    </Row>
+                </div>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <a class="btn btn-success" href="./product/?type=home">SHOP NOW</a>
+            </Col>
+          </Row>
+        </Container>
+        </div>
       </section>
 
-      <section className={"container"}>
+      <section className={"custom-container"}>
         <h2>ABOUT ME</h2>
       </section>
       <Footer/>
