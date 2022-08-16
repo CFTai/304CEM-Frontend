@@ -16,10 +16,6 @@ export default class Home extends Component  {
     super(props);
   }
 
-  state = {
-    productList: []
-  }
-
   componentDidMount() {
     axios.get('http://localhost:8080/product/')
       .then(res  => {

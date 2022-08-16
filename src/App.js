@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { BrowserRouter, Route, Routes, Redirect } from "react-router-dom";
 import Login from "./pages/Login";
-import Shop from "./pages/Shop";
 import Team from "./pages/Team";
 import Home from './pages/Home';
+import Product from "./pages/Product";
 import './styles/app.css';
 
 
@@ -14,7 +14,7 @@ function App() {
           <Route index
            element={<Home />} />
           <Route path="login" element={<Login />} />
-          <Route path="shop" element={<Shop />} />
+          <Route path="product" element={<Product />} />
           <Route path="team" element={<Team />} />
         </Routes>
     </BrowserRouter>

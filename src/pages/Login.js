@@ -1,5 +1,27 @@
-const Login = () => {
-    return <div>
+import React, {Component} from 'react';
+import Overlay from '../components/overlay';
+import Header from '../components/header';
+import Button from '../components/button';
+import Footer from '../components/footer';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+
+
+export default class Login extends Component  {
+  constructor(props) {
+    super(props);
+  }
+  
+  componentDidMount() {
+  }
+
+  render() {
+  return (
+    <div>
         <div class="login-box ">
             <h2>MEMBER LOGIN</h2>
             <form>
@@ -16,7 +38,7 @@ const Login = () => {
                 </a>
             </form>
         </div>
-    </div>;
-};
-
-export default Login;
+    </div>
+  )
+  }
+}

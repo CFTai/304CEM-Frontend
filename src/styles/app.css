@@ -33,7 +33,7 @@ section > .centerElement {
 }
 
 section:nth-child(even) {
-    background-color: rgba(85, 53, 53, 0.584);
+    background-color: white;
 }
 
 .custom-container {
@@ -99,6 +99,11 @@ section:nth-child(even) {
   padding: 10% 5%;
   border-radius: 10px ;
   border: 1px white solid; 
+}
+
+/* Product */
+.custom-container.product > * {
+  color: black;
 }
 
 /* Text */
