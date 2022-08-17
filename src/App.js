@@ -5,6 +5,7 @@ import Team from "./pages/Team";
 import Home from './pages/Home';
 import Product from "./pages/Product";
 import './styles/app.css';
+import PrivatePage from "./PrivatePage";
 
 
 function App() {
@@ -16,6 +17,9 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route path="product" element={<Product />} />
           <Route path="team" element={<Team />} />
+          {/* <ProtectedRoute path="profile" element={<Product />} />
+           */}
+          <Route exact path='profile' element={<PrivatePage Component={Product}/>}/>
         </Routes>
     </BrowserRouter>
   );

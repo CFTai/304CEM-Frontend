@@ -14,6 +14,14 @@ import Col from 'react-bootstrap/Col';
 export default class Home extends Component  {
   constructor(props) {
     super(props);
+    this.state = {
+        productList: null,
+        selectedSize: 'S',
+        selectedType: 'Home kit',
+        selectedQuantity: 0,
+        selectedProduct: null,
+        loading: true,
+    }
   }
 
   componentDidMount() {
@@ -39,8 +47,8 @@ export default class Home extends Component  {
             ONCE THEY'RE GONE<br/>
             THEY'RE GONE!
           </b></p>
-          <Link to={"/shop"}>
-              <Button to="/shop" content="SHOP NOW" variant="defaultBtn"/>
+          <Link to={"/product"}>
+              <Button to="/product" content="SHOP NOW" variant="defaultBtn"/>
           </Link>
         </div>
       </section>

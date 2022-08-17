@@ -9,6 +9,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Button from 'react-bootstrap/Button';
+import { ToggleButton } from 'react-bootstrap';
 
 
 export default class Product extends Component  {
@@ -60,6 +61,23 @@ export default class Product extends Component  {
     }
   }
 
+   addToCart() {
+    console.log("Add to cart")
+    console.log(this.state.selectedSize)
+   }
+
+   changeSelectedSize(v) {
+    this.setState({selectedSize : v}, () => {
+        this.updateSelectedProduct()
+    })
+   }
+
+   changeSelectedType(v) {
+    this.setState({selectedType : v}, () => {
+        this.updateSelectedProduct()
+    })
+   }
+
   render() {
     const handleSizeClick = (e) => {
         console.log(e.target.value);
@@ -77,6 +95,9 @@ export default class Product extends Component  {
                                 </Col>
                                 <Col>
                                     <h1><b>Football Kit</b></h1>
+                                    <p className={"product_type"}>
+                                        {this.state.selectedProduct.name} - {this.state.selectedProduct.size}
+                                    </p>
                                     <p className={"product_description"}>
                                         {this.state.selectedProduct.description }
                                     </p>
@@ -86,11 +107,49 @@ export default class Product extends Component  {
                                     <p className={"product_price"}>
                                         {this.state.selectedProduct.price }
                                     </p>   
-                                    <ButtonGroup onClick={handleSizeClick}>
-                                        <Button variant="primary" value="Button 1">Button 1</Button>
-                                        <Button variant="danger" value="Button 2"> Button 2</Button>
-                                        <Button variant="warning" value="Button 3">Button 3</Button>
-                                    </ButtonGroup>
+                                    <div>
+                                        <ButtonGroup>
+                                        {
+                                            this.state.productList[this.state.selectedType].map((item, idx) => (
+                                                <ToggleButton
+                                                    key={idx}
+                                                    id={`${this.state.selectedType}-${item.size}`}
+                                                    type="radio"
+                                                    variant='outline-success'
+                                                    name="radio"
+                                                    value={item.size}
+                                                    checked={item.size === this.setState.selectedSize}
+                                                    onChange={(e) => this.changeSelectedSize(e.currentTarget.value)}
+                                                >
+                                                    {item.size}
+                                                </ToggleButton>
+                                            ))
+                                        }
+                                        </ButtonGroup>
+                                    </div>
+                                    <div>
+                                        <ButtonGroup>
+                                        {
+                                            Object.keys(this.state.productList).map((item, idx) => (
+                                                <ToggleButton
+                                                    key={idx}
+                                                    id={`${item}`}
+                                                    type="radio"
+                                                    variant='outline-success'
+                                                    name="radio"
+                                                    value={item}
+                                                    checked={this.setState.selectedType === item}
+                                                    onChange={(e) => this.changeSelectedType(e.currentTarget.value)}
+                                                >
+                                                    {item}
+                                                </ToggleButton>
+                                            ))
+                                        }
+                                        </ButtonGroup>
+                                    </div>
+                                    <p>
+                                        <button onClick={this.addToCart}>Add to cart</button>
+                                    </p>
                                 </Col>
                             </Row>
                         </Container>
