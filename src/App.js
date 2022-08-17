@@ -4,6 +4,7 @@ import Login from "./pages/Login";
 import Team from "./pages/Team";
 import Home from './pages/Home';
 import Product from "./pages/Product";
+import Profile from "./pages/Profile";
 import './styles/app.css';
 import PrivatePage from "./PrivatePage";
 
@@ -19,7 +20,7 @@ function App() {
           <Route path="team" element={<Team />} />
           {/* <ProtectedRoute path="profile" element={<Product />} />
            */}
-          <Route exact path='profile' element={<PrivatePage Component={Product}/>}/>
+          <Route exact path='profile' element={<PrivatePage Component={Profile}/>}/>
         </Routes>
     </BrowserRouter>
   );

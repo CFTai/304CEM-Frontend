@@ -25,11 +25,6 @@ export default class Home extends Component  {
   }
 
   componentDidMount() {
-    axios.get('http://localhost:8080/product/')
-      .then(res  => {
-        this.setState({productList: res.data.data.result})
-        console.log(this.state.productList)
-      })
   }
 
   render() {
@@ -60,22 +55,22 @@ export default class Home extends Component  {
         <Container>
           <Row className="justify-content-md-center">
             <Col>
-              <img class="group list-group-image" src="https://dummyimage.com/400x600/8873ff/ffffff" alt="Home Kit" />
-              <div class="caption">
-                    <h4 class="group inner list-group-item-heading">
+              <img className="group list-group-image" src="https://dummyimage.com/400x600/8873ff/ffffff" alt="Home Kit" />
+              <div className="caption">
+                    <h4 className="group inner list-group-item-heading">
                         HOME KIT</h4>
                     <Row>
                         <Col>
-                            <p class="lead">
+                            <p className="lead">
                                 start from 49.99</p>
                         </Col>
                     </Row>
                 </div>
             </Col>
             <Col>
-              <img class="group list-group-image" src="https://dummyimage.com/400x600/8873ff/ffffff" alt="Third Kit" />
-              <div class="caption">
-                    <h4 class="group inner list-group-item-heading">
+              <img className="group list-group-image" src="https://dummyimage.com/400x600/8873ff/ffffff" alt="Third Kit" />
+              <div className="caption">
+                    <h4 className="group inner list-group-item-heading">
                         THIRD KIT</h4>
                     <Row>
                         <Col>
@@ -86,13 +81,13 @@ export default class Home extends Component  {
                 </div>
             </Col>
             <Col>
-              <img class="group list-group-image" src="https://dummyimage.com/400x600/8873ff/ffffff" alt="Home Kit" />
-              <div class="caption">
-                    <h4 class="group inner list-group-item-heading">
+              <img className="group list-group-image" src="https://dummyimage.com/400x600/8873ff/ffffff" alt="Home Kit" />
+              <div className="caption">
+                    <h4 className="group inner list-group-item-heading">
                         AWAY KIT</h4>
                     <Row>
                         <Col>
-                            <p class="lead">
+                            <p className="lead">
                                 start from 49.99</p>
                         </Col>
                     </Row>
@@ -101,15 +96,15 @@ export default class Home extends Component  {
           </Row>
           <Row>
             <Col>
-              <a class="btn btn-success" href="./product/?type=home">SHOP NOW</a>
+              <a className="btn btn-success" href="./product/?type=home">SHOP NOW</a>
             </Col>
           </Row>
         </Container>
         </div>
       </section>
 
-      <section className={"custom-container"}>
-        <h2>ABOUT ME</h2>
+      <section className={"custom-continer"}>
+        <h2>ABOUT ME</h2>a
       </section>
       <Footer/>
     </div>

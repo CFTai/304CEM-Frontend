@@ -7,10 +7,10 @@ import axios from 'axios';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import { ToggleButton } from 'react-bootstrap';
-
+import Cookies from "universal-cookie";
 
 export default class Product extends Component  {
   constructor(props) {
@@ -19,9 +19,13 @@ export default class Product extends Component  {
         productList: null,
         selectedSize: 'S',
         selectedType: 'Home kit',
-        selectedQuantity: 0,
         selectedProduct: null,
         loading: true,
+        form : {
+            printName: null,
+            printNumber: null,
+            quantity: 1,
+        }
       }
   }
 
@@ -52,6 +56,36 @@ export default class Product extends Component  {
     return await group_list
   }
 
+  async addToCart(){
+    // pack form item to json
+    const body = this.state.form
+    // await axios.post(
+    //     'http://localhost:8080/product/' + this.state.selectedProduct._id + '/cart/',
+    //     body
+    // ).then(res => console.log(res))
+    const cookies = new Cookies();
+    const token = cookies.get("TOKEN");
+    const configuration = {
+        method: "post",
+        url: 'http://localhost:8080/product/' + this.state.selectedProduct._id + '/cart/',
+        data: body,
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    }
+    // call post api
+    axios(configuration)
+      .then((result) => {
+        if(result.status === 201) {
+            console.log('Popup message');
+        }
+      })
+      .catch((error) => {
+        error = new Error();
+      });
+    // reset form data if success
+  }
+
   updateSelectedProduct() {
     try {
         const result = this.state.productList[this.state.selectedType].find(item => item.size === this.state.selectedSize)
@@ -60,11 +94,6 @@ export default class Product extends Component  {
         console.log(e)
     }
   }
-
-   addToCart() {
-    console.log("Add to cart")
-    console.log(this.state.selectedSize)
-   }
 
    changeSelectedSize(v) {
     this.setState({selectedSize : v}, () => {
@@ -78,10 +107,38 @@ export default class Product extends Component  {
     })
    }
 
+   toggleFavourite() {
+    
+   }
+
+
   render() {
-    const handleSizeClick = (e) => {
-        console.log(e.target.value);
+    const handleAddToCart = (e) => {
+        e.preventDefault();
+        this.addToCart();
+     }
+
+    const toggleFavourite = () => {
+        const cookies = new Cookies();
+        const token = cookies.get("TOKEN");
+        const configuration = {
+            method: "put",
+            url: 'http://localhost:8080/product/' + this.state.selectedProduct._id + '/favourite/',
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
+        axios(configuration)
+        .then((result) => {
+        if(result.status === 200) {
+            console.log('Popup message');
+        }
+        })
+        .catch((error) => {
+            error = new Error();
+        });
     }
+
   return (
     <div>
         <Header/>
@@ -127,6 +184,7 @@ export default class Product extends Component  {
                                         }
                                         </ButtonGroup>
                                     </div>
+                                        <br/>
                                     <div>
                                         <ButtonGroup>
                                         {
@@ -147,9 +205,48 @@ export default class Product extends Component  {
                                         }
                                         </ButtonGroup>
                                     </div>
-                                    <p>
-                                        <button onClick={this.addToCart}>Add to cart</button>
-                                    </p>
+                                    <form onSubmit={handleAddToCart}>
+                                        <label>
+                                            Perosnal name
+                                        </label>
+                                        <br/>
+                                        <input
+                                            type="text"
+                                            name="printName"
+                                            onChange={e => this.setState({form : {...this.state.form, printName :e.target.value}})}
+                                        />
+                                        <br/>
+                                        <label>
+                                            Perosnal Number
+                                        </label>
+                                        <br/>
+                                        <input
+                                            type="text"
+                                            name="printNumber"
+                                            onChange={e => this.setState({form :{...this.state.form, printNumber :e.target.value}})}
+                                        />
+                                        <br/>
+                                        <label>
+                                            Quantity
+                                        </label>
+                                        <br/>
+                                        <input
+                                            type="text"
+                                            name="quantity"
+                                            value={this.state.form.quantity}
+                                            onChange={e => this.setState({form :{...this.state.form, quantity :e.target.value}})}
+                                        />
+                                        <br/>
+                                        <br/>
+                                        <input type="submit" className="submitButton" />
+                                    </form>
+                                        <br/>
+                                        <Button
+                                            variant="primary"
+                                            onClick={toggleFavourite}
+                                        >
+                                            Add To Favourite
+                                        </Button>
                                 </Col>
                             </Row>
                         </Container>

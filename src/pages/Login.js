@@ -43,8 +43,8 @@ export default class Login extends Component  {
   }
 
   render() {
-    const handleSubmit = async (event) => {
-      event.preventDefault();
+    const handleSubmit = async (e) => {
+      e.preventDefault();
       const result = await this.LoginUser({
         "email": this.state.email,
         "password": this.state.password
@@ -59,6 +59,7 @@ export default class Login extends Component  {
         cookies.set("USERNAME", userProfile, {
           path: "/",
         })
+        this.setState({redirect : true})
       } else {
         console.log("Login error")
       }

@@ -54,6 +54,10 @@ section:nth-child(even) {
   display: grid;
 }
 
+.custom-container.block {
+  display: block;
+}
+
 .custom-container header {
   position: absolute;
   left: 0;
