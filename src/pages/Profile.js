@@ -28,19 +28,6 @@ export default class Profile extends Component  {
   }
 
   componentDidMount() {
-    // if (!this.state.productList) {
-    //     (async () => {
-    //         try {
-    //             this.setState({productList: await this.queryProduct()}, () => {
-    //                 this.updateSelectedProduct();
-    //                 this.setState({loading:false})
-    //                 console.log(this.state.productList)
-    //             })
-    //         } catch (e) {
-    //             console.log(e)
-    //         }
-    //     })()
-    // }
     (async () => {
         await this.queryProfile()
         await this.queryOrderHistory()
@@ -48,20 +35,10 @@ export default class Profile extends Component  {
     })()
   }
 
-//   async queryProduct() {
-//     const res = await axios.get('http://localhost:8080/product/')
-//     const data = await res.data.data.result;
-//     const group_list = await data.reduce(function (r, a) {
-//                 r[a.name] = r[a.name] || [];
-//                 r[a.name].push(a);
-//                 return r;
-//             }, Object.create(null));
-//     return await group_list
-//   }
   async queryProfile() {
     const configuration = {
         method: "get",
-        url: "http://localhost:8080/user/profile/",
+        url: process.env.REACT_APP_API_URL + "user/profile/",
         headers: {
             Authorization: `Bearer ${this.getToken()}`,
         },
@@ -85,7 +62,7 @@ export default class Profile extends Component  {
   async queryOrderHistory() {
     const configuration = {
         method: "get",
-        url: "http://localhost:8080/order/",
+        url: process.env.REACT_APP_API_URL + "order/",
         headers: {
             Authorization: `Bearer ${this.getToken()}`,
         },
@@ -110,7 +87,7 @@ export default class Profile extends Component  {
   async queryCart() {
     const configuration = {
         method: "get",
-        url: "http://localhost:8080/order/cart/",
+        url: process.env.REACT_APP_API_URL + "order/cart/",
         headers: {
             Authorization: `Bearer ${this.getToken()}`,
         },
@@ -135,7 +112,7 @@ export default class Profile extends Component  {
   async callPlaceOrder() {
     const configuration = {
         method: "post",
-        url: "http://localhost:8080/order/cart",
+        url: process.env.REACT_APP_API_URL + "order/cart",
         headers: {
             Authorization: `Bearer ${this.getToken()}`,
         },
@@ -155,7 +132,7 @@ export default class Profile extends Component  {
   async clearCart() {
     const configuration = {
         method: "delete",
-        url: "http://localhost:8080/order/cart",
+        url: process.env.REACT_APP_API_URL + "order/cart",
         headers: {
             Authorization: `Bearer ${this.getToken()}`,
         },
@@ -181,7 +158,7 @@ export default class Profile extends Component  {
   onCartItemDelete(id) {
     const configuration = {
         method: "delete",
-        url: "http://localhost:8080/order/cart/" + id + "/item/",
+        url: process.env.REACT_APP_API_URL + "order/cart/" + id + "/item/",
         headers: {
             Authorization: `Bearer ${this.getToken()}`,
         },

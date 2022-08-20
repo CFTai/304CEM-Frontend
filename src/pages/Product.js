@@ -9,6 +9,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import CommentSection from '../components/commentSection';
 import { ToggleButton } from 'react-bootstrap';
 import Cookies from "universal-cookie";
 
@@ -35,8 +36,7 @@ export default class Product extends Component  {
             try {
                 this.setState({productList: await this.queryProduct()}, () => {
                     this.updateSelectedProduct();
-                    this.setState({loading:false})
-                    console.log(this.state.productList)
+                    this.setState({loading: false})
                 })
             } catch (e) {
                 console.log(e)
@@ -46,9 +46,17 @@ export default class Product extends Component  {
   }
 
   async queryProduct() {
-    const res = await axios.get('http://localhost:8080/product/')
-    const data = await res.data.data.result;
-    const group_list = await data.reduce(function (r, a) {
+    const res = await axios.get(process.env.REACT_APP_API_URL + 'product/').catch(
+        function (error) {
+            if (error.response) {
+                console.log(error.response.data);
+                console.log(error.response.status);
+                console.log(error.response.headers);
+            }
+        }
+    )
+    const data = await res.data.data.result; 
+    const group_list = await data.reduce(function (r,a) {
                 r[a.name] = r[a.name] || [];
                 r[a.name].push(a);
                 return r;
@@ -59,15 +67,11 @@ export default class Product extends Component  {
   async addToCart(){
     // pack form item to json
     const body = this.state.form
-    // await axios.post(
-    //     'http://localhost:8080/product/' + this.state.selectedProduct._id + '/cart/',
-    //     body
-    // ).then(res => console.log(res))
     const cookies = new Cookies();
     const token = cookies.get("TOKEN");
     const configuration = {
         method: "post",
-        url: 'http://localhost:8080/product/' + this.state.selectedProduct._id + '/cart/',
+        url: process.env.REACT_APP_API_URL + 'product/' + this.state.selectedProduct._id + '/cart/',
         data: body,
         headers: {
             Authorization: `Bearer ${token}`,
@@ -83,7 +87,6 @@ export default class Product extends Component  {
       .catch((error) => {
         error = new Error();
       });
-    // reset form data if success
   }
 
   updateSelectedProduct() {
@@ -107,11 +110,6 @@ export default class Product extends Component  {
     })
    }
 
-   toggleFavourite() {
-    
-   }
-
-
   render() {
     const handleAddToCart = (e) => {
         e.preventDefault();
@@ -123,7 +121,7 @@ export default class Product extends Component  {
         const token = cookies.get("TOKEN");
         const configuration = {
             method: "put",
-            url: 'http://localhost:8080/product/' + this.state.selectedProduct._id + '/favourite/',
+            url: process.env.REACT_APP_API_URL + 'product/' + this.state.selectedProduct._id + '/favourite/',
             headers: {
                 Authorization: `Bearer ${token}`,
             },
@@ -248,6 +246,10 @@ export default class Product extends Component  {
                                             Add To Favourite
                                         </Button>
                                 </Col>
+                            </Row>
+
+                            <Row>
+                                <CommentSection />
                             </Row>
                         </Container>
                     ) : (

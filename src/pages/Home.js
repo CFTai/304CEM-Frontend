@@ -74,7 +74,7 @@ export default class Home extends Component  {
                         THIRD KIT</h4>
                     <Row>
                         <Col>
-                            <p class="lead">
+                            <p className="lead">
                                 start from 49.99</p>
                         </Col>
                     </Row>

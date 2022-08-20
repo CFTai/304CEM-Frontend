@@ -7,12 +7,12 @@ class Footer extends Component {
     render() {
         return (
             <footer id="footer">
-                <a href="" id="github-url" target="_blank">
+                {/* <a href="" id="github-url" target="_blank">
                     GITHUB
                 </a>
                 <a href="" id="github-url" target="_blank">
                     LINKEDIN 
-                </a>
+                </a> */}
                 <span className="footer-span">
                     304CEM Assignment
                 </span>
