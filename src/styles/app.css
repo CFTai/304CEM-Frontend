@@ -308,8 +308,20 @@ label {
 /* Comment Section */
 
 .CommentSection textarea {
-  border: none;
+  /* border: none; */
   resize: none;
+  min-height: 40px;
+  min-width: 400px;
+}
+
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+  line-height:40px;
+}
+::-webkit-input-placeholder { /* Webkit */
+  line-height:40px;
+}
+:-ms-input-placeholder { /* IE */
+  line-height:40px;
 }
 
 .CommentSection .user{
@@ -335,6 +347,9 @@ label {
 
 .CommentSection button {
   cursor: pointer;
+  padding: 0 20px;
+  min-height: 40px;
+  margin: 0 20px;
 }
 
 .CommentSection button:disabled {
@@ -342,8 +357,25 @@ label {
   cursor: not-allowed;
 }
 
-.CommentSection button[type="subtmit"] {
-  background: #1a8917;
+.CommentSection button[type=submit] {
+  background: #0d6efd;
+  border-radius: .25rem;
   color: #FFF;
-  border-radius: 4px;
+  border: 0;
+}
+
+.CommentListSection {
+  margin-top: 40px;
+}
+
+.CommentListItem {
+  padding-top: 20px;
+}
+
+span.commentatorContent{
+  margin-left: 30px;
+}
+
+.CommentListSection span.commentatorTitle {
+  font-weight: bold;
 }

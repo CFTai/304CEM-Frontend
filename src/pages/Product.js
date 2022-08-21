@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Loading from '../components/loading';
 import Header from '../components/header';
 import Footer from '../components/footer';
+import CommentListSection from '../components/commentListSections';
 import axios from 'axios';
 
 import Container from 'react-bootstrap/Container';
@@ -17,7 +18,9 @@ export default class Product extends Component  {
   constructor(props) {
     super(props);
     this.state = {
+        username: null,
         productList: null,
+        commentList: null,
         selectedSize: 'S',
         selectedType: 'Home kit',
         selectedProduct: null,
@@ -25,7 +28,7 @@ export default class Product extends Component  {
         form : {
             printName: null,
             printNumber: null,
-            quantity: 1,
+            quantity: 1
         }
       }
   }
@@ -37,6 +40,10 @@ export default class Product extends Component  {
                 this.setState({productList: await this.queryProduct()}, () => {
                     this.updateSelectedProduct();
                     this.setState({loading: false})
+                    const cookies = new Cookies();
+                    this.setState({username: cookies.get("USERNAME") || null}, () => {
+                        console.log(this.state)
+                    })
                 })
             } catch (e) {
                 console.log(e)
@@ -62,6 +69,19 @@ export default class Product extends Component  {
                 return r;
             }, Object.create(null));
     return await group_list
+  }
+
+  async queryProductComment() {
+    const res = await axios.get(process.env.REACT_APP_API_URL + 'product/' + this.state.selectedProduct._id + '/comment/').catch(
+        function (error) {
+            if (error.response) {
+                console.log(error.response.data);
+                console.log(error.response.status);
+                console.log(error.response.headers);
+            }
+        }
+    )
+    return await res.data.data;
   }
 
   async addToCart(){
@@ -92,7 +112,18 @@ export default class Product extends Component  {
   updateSelectedProduct() {
     try {
         const result = this.state.productList[this.state.selectedType].find(item => item.size === this.state.selectedSize)
-        this.setState({selectedProduct : result})
+        this.setState({selectedProduct : result}, () => {
+            (async () => {
+                try {
+                    this.setState({commentList: await this.queryProductComment()}, () => {
+                        console.log('this.state: ', this.state.commentList)
+                    })
+                } catch (e) {
+                    console.log(e)
+                }
+            })()
+        })
+        
     } catch (e) {
         console.log(e)
     }
@@ -247,10 +278,18 @@ export default class Product extends Component  {
                                         </Button>
                                 </Col>
                             </Row>
-
                             <Row>
-                                <CommentSection />
+                                <CommentListSection list={this.state.commentList} />
                             </Row>
+                            {
+                                this.state.username ? (
+                                    <Row>
+                                        <CommentSection productId={this.state.selectedProduct._id} />
+                                    </Row>
+                                ) : (
+                                    <></>
+                                )
+                            }
                         </Container>
                     ) : (
                         <Loading />
