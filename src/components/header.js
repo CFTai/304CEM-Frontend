@@ -63,6 +63,7 @@ class Header extends Component {
                                 </NavDropdown>
                              ) : (
                                 <NavDropdown title="Menu" id="basic-nav-dropdown">
+                                    <NavDropdown.Item href="/signup">Sign up</NavDropdown.Item>
                                     <NavDropdown.Item href="/login">Login</NavDropdown.Item>
                                 </NavDropdown>
                              )
