@@ -21,38 +21,6 @@ function CommentSection(props) {
     const textRef = useRef(null);
     const containerRef = useRef(null);
 
-    // const onChange = (e) => {
-    //     CommentValue = e.target.value;
-    // }
-
-    // const onSubmit = (e) => {
-    //     e.preventDefault();
-    //     const body = {
-    //         "content": CommentValue,
-    //         "rating": 5
-    //     }
-    // const cookies = new Cookies();
-    // const token = cookies.get("TOKEN");
-    // const configuration = {
-    //     method: "post",
-    //     url: process.env.REACT_APP_API_URL + 'product/' + productId.productId + '/comment/',
-    //     data: body,
-    //     headers: {
-    //         Authorization: `Bearer ${token}`,
-    //     },
-    // }
-    // // call post api
-    // axios(configuration)
-    //   .then((result) => {
-    //     if(result.status === 201) {
-    //         window.location.reload();
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     error = new Error();
-    //   });
-    // }
-
     const onChange = (e) => {
         CommentValue = e.target.value
     }

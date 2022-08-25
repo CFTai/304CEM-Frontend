@@ -16,10 +16,11 @@ export default class Login extends Component  {
   }
 
   componentDidMount() {
+    console.log(process.env)
   }
 
   async LoginUser(credentials) {
-    return fetch( process.env.REACT_APP_API_URL + 'auth/login/', {
+    return fetch(process.env.REACT_APP_API_URL + 'auth/login/', {
       method: 'POST',
       headers: {
         'Content-Type' : 'application/json'

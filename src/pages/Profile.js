@@ -174,6 +174,28 @@ export default class Profile extends Component  {
     });
   }
 
+  onUpdatePassword(pw) {
+    const body = {
+      password : pw
+    }
+    const configuration = {
+        method: "put",
+        data: body,
+        url: process.env.REACT_APP_API_URL + "user/profile/",
+        headers: {
+            Authorization: `Bearer ${this.getToken()}`,
+        },
+    }
+    axios(configuration)
+    .then((result) => {
+      console.log('success')
+    })
+    .catch((error) => {
+      error = new Error();
+    });
+  }
+
+
 
   render() {
 
@@ -187,6 +209,11 @@ export default class Profile extends Component  {
 
     const removeItemFromCart = (id) => {
         this.onCartItemDelete(id);
+    }
+
+    const updatePassword = (password) => {
+      console.log(password)
+      this.onUpdatePassword(password)
     }
 
   return (
@@ -218,7 +245,7 @@ export default class Profile extends Component  {
         <Col sm={9}>
           <Tab.Content>
             <Tab.Pane eventKey="profile">
-              <ProfileComponent list={this.state.dataList.userProfile}/>
+              <ProfileComponent list={this.state.dataList.userProfile} updatePw={updatePassword}/>
             </Tab.Pane>
             <Tab.Pane eventKey="orders">
               <OrderHistoryComponent list={this.state.dataList.orderHistory}/>
