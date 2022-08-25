@@ -6,7 +6,6 @@ export function getProductHandler() {
         // const persons = res.data;
         // this.setState({ persons });
         const products = res.data.data.result;
-        console.log('product: ', products)
         return products;
       })
 }
