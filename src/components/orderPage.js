@@ -2,7 +2,6 @@ import Table from 'react-bootstrap/Table'
 import moment from 'moment';
 
 function OrderHistoryComponent(props) {
-    console.log(props)
     const result = props.list
     return (
         <div>

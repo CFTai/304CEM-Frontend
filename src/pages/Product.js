@@ -13,6 +13,8 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import CommentSection from '../components/commentSection';
 import { ToggleButton } from 'react-bootstrap';
 import Cookies from "universal-cookie";
+import Toast from 'react-bootstrap/Toast';
+import ToastContainer from 'react-bootstrap/ToastContainer';
 
 export default class Product extends Component  {
   constructor(props) {
@@ -25,11 +27,19 @@ export default class Product extends Component  {
         selectedType: 'Home kit',
         selectedProduct: null,
         loading: true,
+        footballKitType: {
+            'Home kit': '../images/homePage/home.jpeg',
+            'Third kit': '../images/homePage/third.jpeg',
+            'Away kit': '../images/homePage/away.jpeg'
+        },
         form : {
             printName: null,
             printNumber: null,
             quantity: 1
-        }
+        },
+        comment: '',
+        showToast: false,
+        toastMessage: null
       }
   }
 
@@ -42,11 +52,9 @@ export default class Product extends Component  {
                     this.setState({loading: false})
                     const cookies = new Cookies();
                     this.setState({username: cookies.get("USERNAME") || null}, () => {
-                        console.log(this.state)
                     })
                 })
             } catch (e) {
-                console.log(e)
             }
         })()
     }
@@ -56,9 +64,6 @@ export default class Product extends Component  {
     const res = await axios.get(process.env.REACT_APP_API_URL + 'product/').catch(
         function (error) {
             if (error.response) {
-                console.log(error.response.data);
-                console.log(error.response.status);
-                console.log(error.response.headers);
             }
         }
     )
@@ -75,9 +80,6 @@ export default class Product extends Component  {
     const res = await axios.get(process.env.REACT_APP_API_URL + 'product/' + this.state.selectedProduct._id + '/comment/').catch(
         function (error) {
             if (error.response) {
-                console.log(error.response.data);
-                console.log(error.response.status);
-                console.log(error.response.headers);
             }
         }
     )
@@ -101,7 +103,7 @@ export default class Product extends Component  {
     axios(configuration)
       .then((result) => {
         if(result.status === 201) {
-            console.log('Popup message');
+            this.setState({showToast: true, toastMessage: 'Item added to cart'})
         }
       })
       .catch((error) => {
@@ -115,17 +117,13 @@ export default class Product extends Component  {
         this.setState({selectedProduct : result}, () => {
             (async () => {
                 try {
-                    this.setState({commentList: await this.queryProductComment()}, () => {
-                        console.log('this.state: ', this.state.commentList)
-                    })
+                    this.setState({commentList: await this.queryProductComment()})
                 } catch (e) {
-                    console.log(e)
                 }
             })()
         })
         
     } catch (e) {
-        console.log(e)
     }
   }
 
@@ -160,7 +158,7 @@ export default class Product extends Component  {
         axios(configuration)
         .then((result) => {
         if(result.status === 200) {
-            console.log('Popup message');
+            this.setState({showToast: true, toastMessage: 'Item added to favourite'})
         }
         })
         .catch((error) => {
@@ -168,7 +166,60 @@ export default class Product extends Component  {
         });
     }
 
+    const onCommentSubmit = (e) => {
+        const body = {
+            "content": e,
+            "rating": 5
+        }
+        const cookies = new Cookies();
+        const token = cookies.get("TOKEN");
+        const configuration = {
+            method: "post",
+            url: process.env.REACT_APP_API_URL + 'product/' + this.state.selectedProduct._id + '/comment/',
+            data: body,
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
+        // call post api
+        axios(configuration)
+          .then((result) => {
+            if(result.status === 201) {
+                window.location.reload();
+            }
+          })
+          .catch((error) => {
+            error = new Error();
+          });
+    }
+
+    let kitImage;
+    
+    if (this.state.selectedType === 'Home kit') {
+        kitImage = <img className="group list-group-image" src={require('../images/homePage/home.jpeg')} alt="Home Kit" />
+    } else if (this.state.selectedType === 'Away kit') {
+        kitImage = <img className="group list-group-image" src={require('../images/homePage/away.jpeg')} alt="Away Kit" />
+    } else {
+        kitImage = <img className="group list-group-image" src={require('../images/homePage/third.jpeg')} alt="Third Kit" />
+    }
+
   return (
+    <div>
+        
+        <div
+            className='toastSection'
+            aria-live="polite"
+            aria-atomic="true"
+        >
+            <ToastContainer position="top-end" className="p-3">
+                <Toast onClose={() => this.setState({showToast: false, toastMessage: null})} show={this.state.showToast} delay={30000} autohide>
+                    <Toast.Header>
+                        <strong className="me-auto">Reminder</strong>
+                    </Toast.Header>
+                    <Toast.Body>{this.state.toastMessage}</Toast.Body>
+                </Toast>
+            </ToastContainer>
+        </div>
     <div>
         <Header/>
             <section className={"custom-container grid product"}>
@@ -177,7 +228,7 @@ export default class Product extends Component  {
                         <Container>
                             <Row>
                                 <Col>
-                                    <img className="group list-group-image" src="https://dummyimage.com/400x600/8873ff/ffffff" alt="Home Kit" />
+                                    {kitImage}
                                 </Col>
                                 <Col>
                                     <h1><b>Football Kit</b></h1>
@@ -188,13 +239,13 @@ export default class Product extends Component  {
                                         {this.state.selectedProduct.description }
                                     </p>
                                     <p className={"product_stock"}>
-                                        {this.state.selectedProduct.stock }
+                                        Stock: {this.state.selectedProduct.stock }
                                     </p>
                                     <p className={"product_price"}>
-                                        {this.state.selectedProduct.price }
+                                        £{this.state.selectedProduct.price}
                                     </p>   
                                     <div>
-                                        <ButtonGroup>
+                                        <ButtonGroup className="btnGroup">
                                         {
                                             this.state.productList[this.state.selectedType].map((item, idx) => (
                                                 <ToggleButton
@@ -204,7 +255,7 @@ export default class Product extends Component  {
                                                     variant='outline-success'
                                                     name="radio"
                                                     value={item.size}
-                                                    checked={item.size === this.setState.selectedSize}
+                                                    checked={this.setState.selectedSize === item.size}
                                                     onChange={(e) => this.changeSelectedSize(e.currentTarget.value)}
                                                 >
                                                     {item.size}
@@ -270,24 +321,29 @@ export default class Product extends Component  {
                                         <input type="submit" className="submitButton" />
                                     </form>
                                         <br/>
-                                        <Button
-                                            variant="primary"
-                                            onClick={toggleFavourite}
-                                        >
-                                            Add To Favourite
-                                        </Button>
-                                </Col>
-                            </Row>
+                                        {
+                                            this.state.username ? (
+                                                <Button
+                                                    variant="primary"
+                                                    onClick={toggleFavourite}
+                                                >
+                                                    Add To Favourite
+                                                </Button>
+                                            ) :<></>}
+                                    </Col>
+                                </Row>
                             <Row>
                                 <CommentListSection list={this.state.commentList} />
                             </Row>
                             {
                                 this.state.username ? (
                                     <Row>
-                                        <CommentSection productId={this.state.selectedProduct._id} />
+                                        <CommentSection onCommentSubmit={onCommentSubmit} />
                                     </Row>
                                 ) : (
-                                    <></>
+                                    <Row>
+                                        <div className="loginReminderSection"><a href="/login">Login</a> and leave your comment</div>
+                                    </Row>
                                 )
                             }
                         </Container>
@@ -297,6 +353,7 @@ export default class Product extends Component  {
                 }
             </section>
         <Footer/>
+    </div>
     </div>
   )
   }

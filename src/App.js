@@ -5,8 +5,12 @@ import Team from "./pages/Team";
 import Home from './pages/Home';
 import Product from "./pages/Product";
 import Profile from "./pages/Profile";
-import './styles/app.css';
+import SignUp from "./pages/SignUp";
+import SignupSuccess from "./pages/SignupSuccess";
 import PrivatePage from "./PrivatePage";
+
+
+import './styles/app.css';
 
 
 function App() {
@@ -16,8 +20,10 @@ function App() {
           <Route index
            element={<Home />} />
           <Route path="login" element={<Login />} />
+          <Route path="signup" element={<SignUp />} />
           <Route path="product" element={<Product />} />
           <Route path="team" element={<Team />} />
+          <Route path="signupSuccess" element={<SignupSuccess />} />
           {/* <ProtectedRoute path="profile" element={<Product />} />
            */}
           <Route exact path='profile' element={<PrivatePage Component={Profile}/>}/>

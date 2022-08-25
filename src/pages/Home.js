@@ -51,11 +51,11 @@ export default class Home extends Component  {
       <section className={"custom-container"}>
         <div className={"product-background"}></div>
         <div className={"landing-content"}>
-        <h2 className={"subtitle"}>GET OUT LATEST KIT</h2>
+        <h2 className={"subtitle"}>TRENDING</h2>
         <Container>
           <Row className="justify-content-md-center">
             <Col>
-              <img className="group list-group-image" src="https://dummyimage.com/400x600/8873ff/ffffff" alt="Home Kit" />
+              <img className="group list-group-image" src={require('../images/homePage/home.jpeg')} alt="Home Kit" />
               <div className="caption">
                     <h4 className="group inner list-group-item-heading">
                         HOME KIT</h4>
@@ -68,7 +68,7 @@ export default class Home extends Component  {
                 </div>
             </Col>
             <Col>
-              <img className="group list-group-image" src="https://dummyimage.com/400x600/8873ff/ffffff" alt="Third Kit" />
+              <img className="group list-group-image" src={require('../images/homePage/away.jpeg')} alt="Third Kit" />
               <div className="caption">
                     <h4 className="group inner list-group-item-heading">
                         THIRD KIT</h4>
@@ -81,7 +81,7 @@ export default class Home extends Component  {
                 </div>
             </Col>
             <Col>
-              <img className="group list-group-image" src="https://dummyimage.com/400x600/8873ff/ffffff" alt="Home Kit" />
+              <img className="group list-group-image" src={require('../images/homePage/third.jpeg')} alt="Home Kit" />
               <div className="caption">
                     <h4 className="group inner list-group-item-heading">
                         AWAY KIT</h4>
@@ -96,16 +96,16 @@ export default class Home extends Component  {
           </Row>
           <Row>
             <Col>
-              <a className="btn btn-success" href="./product/?type=home">SHOP NOW</a>
+              <a className="btn btn-success" href="./product/">SHOP NOW</a>
             </Col>
           </Row>
         </Container>
         </div>
       </section>
 
-      <section className={"custom-continer"}>
+      {/* <section className={"custom-continer"}>
         <h2>ABOUT ME</h2>a
-      </section>
+      </section> */}
       <Footer/>
     </div>
   )

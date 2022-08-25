@@ -69,7 +69,6 @@ export default class Profile extends Component  {
     }
     axios(configuration)
     .then((result) => {
-        console.log(result)
       if(result.status === 200) {
         this.setState(prevState => {
             let dataList = {...prevState.dataList};

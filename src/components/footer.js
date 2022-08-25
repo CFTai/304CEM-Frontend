@@ -14,7 +14,8 @@ class Footer extends Component {
                     LINKEDIN 
                 </a> */}
                 <span className="footer-span">
-                    304CEM Assignment
+                    304CEM Assignment<br/>
+                    Created by Stephen Tai
                 </span>
             </footer>
         )

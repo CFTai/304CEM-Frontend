@@ -7,7 +7,6 @@ import Loading from '../components/loading';
 
 function ProfileComponent(props) {
     const result = props.list
-    var isLoading = false;
     return (
             result ? (
                 <Container>
@@ -21,10 +20,6 @@ function ProfileComponent(props) {
                     <Row>
                         <Col><p>Points</p></Col>
                         <Col><p>{result.point}</p></Col>
-                    </Row>
-                    <Row>
-                        <Col><p>Favourite</p></Col>
-                        <Col><p>here</p></Col>
                     </Row>
                 </Container>) : (
                         <Loading />)

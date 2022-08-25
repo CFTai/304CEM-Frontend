@@ -19,7 +19,7 @@ export default class Login extends Component  {
   }
 
   async LoginUser(credentials) {
-    return fetch('http://localhost:8080/auth/login/', {
+    return fetch( process.env.REACT_APP_API_URL + 'auth/login/', {
       method: 'POST',
       headers: {
         'Content-Type' : 'application/json'
@@ -32,7 +32,7 @@ export default class Login extends Component  {
   async getUserProfile(token) {
     const configuration = {
       method: "get",
-      url: "http://localhost:8080/user/profile/",
+      url: process.env.REACT_APP_API_URL + "user/profile/",
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -97,9 +97,6 @@ export default class Login extends Component  {
               Submit
             </button>
           </div>
-          <p className="forgot-password text-right mt-2">
-            Forgot password
-          </p>
         </div>
       </form>
     </div>
